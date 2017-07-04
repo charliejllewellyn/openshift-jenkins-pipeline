@@ -11,8 +11,7 @@ node ('openshift-jenkins-pipeline') {
         sh "echo export OS_AUTH_URL=`oc get configmap openstack-config --template='{{ .data.openstack_url }}'` | tee -a openstack_rc.sh"
     }
 
-    stage('build HEAT environment') {
-        sh 'cat openstack_rc.sh'
-        sh 'source ./openstack_rc.sh ; openstack catalog list'
+    stage('cleanup HEAT environment') {
+        sh 'source ./openstack_rc.sh ; openstack stack delete openshift_customer2'
     }
 }
