@@ -18,7 +18,7 @@ node ('openshift-jenkins-pipeline') {
     }
 
     stage('setup host keys') {
-        sh 'source ./openstack_rc.sh ; openstack keypair delete jenkins || openstack keypair create jenkins | tee -a id_rsa_jenkins'
+        sh 'source ./openstack_rc.sh ; openstack keypair delete jenkins ; openstack keypair create jenkins | tee -a id_rsa_jenkins'
     }
 
     stage('setup HEAT environment') {
