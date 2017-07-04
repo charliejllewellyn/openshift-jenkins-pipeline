@@ -1,7 +1,5 @@
 node {
 
-    agent any
-
     stage('build') {
         openshiftBuild(buildConfig: 'openshift-jenkins-pipeline', showBuildLogs: 'true')
     }
