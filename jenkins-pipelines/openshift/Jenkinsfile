@@ -15,6 +15,6 @@ node ('openshift-jenkins-pipeline') {
     stage('build HEAT environment') {
         unstash 'openstack-config'
         sh 'cat openstack_rc.sh'
-        sh 'source openstack_rc.sh ; openstack catalog list'
+        sh '. openstack_rc.sh ; openstack catalog list'
     }
 }
