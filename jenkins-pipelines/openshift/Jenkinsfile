@@ -5,10 +5,13 @@ node ('openshift-jenkins-pipeline') {
     }
 
     stage('setup OpenStack credentials') {
-        sh "echo OS_PASSWORD=`oc get secrets openstack --template='{{ .data.password }}' | base64 --decode` >> openstack_rc.sh"
-        sh "echo OS_USERNAME=`oc get secrets openstack --template='{{ .data.username }}' | base64 --decode` >> openstack_rc.sh"
-        sh "echo OS_TENANT_ID=`oc get configmap openstack-config --template='{{ .data.openstack_project_id }}' | base64 --decode` >> openstack_rc.sh"
-        sh "echo OS_AUTH_URL=`oc get configmap openstack-config --template='{{ .data.openstack_url }}' | base64 --decode` >> openstack_rc.sh"
+        sh 'ls'
+        sh "echo OS_PASSWORD=`oc get secrets openstack --template='{{ .data.password }}' | base64 --decode` | tee -a openstack_rc.sh"
+        sh 'ls'
+        sh 'cat openstack_rc.sh'
+        sh "echo OS_USERNAME=`oc get secrets openstack --template='{{ .data.username }}' | base64 --decode` | tee -a openstack_rc.sh"
+        sh "echo OS_TENANT_ID=`oc get configmap openstack-config --template='{{ .data.openstack_project_id }}' | base64 --decode` | tee -a openstack_rc.sh"
+        sh "echo OS_AUTH_URL=`oc get configmap openstack-config --template='{{ .data.openstack_url }}' | base64 --decode` | tee -a openstack_rc.sh"
     }
 
     stage('build HEAT environment') {

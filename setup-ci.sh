@@ -16,3 +16,5 @@ oc new-build https://github.com/charliejllewellyn/openshift-jenkins-pipeline.git
 oc create -f openstack_params.yaml
 
 oc create secret generic openstack --from-literal=username=openshift@ukcloud.com --from-literal=password=$password
+
+oc new-build https://github.com/charliejllewellyn/openshift-jenkins-pipeline.git --context-dir=jenkins-pipelines/openshift/ --name=openshift-build
