@@ -13,6 +13,6 @@ node ('openshift-jenkins-pipeline') {
 
     stage('build HEAT environment') {
         sh 'cat openstack_rc.sh'
-        sh 'source ./openstack_rc.sh ; openstack catalog list'
+        sh 'source ./openstack_rc.sh ; echo \$OS_AUTH_URL ; openstack catalog list'
     }
 }
