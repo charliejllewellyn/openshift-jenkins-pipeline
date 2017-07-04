@@ -11,7 +11,6 @@ node ('openshift-jenkins-pipeline') {
         sh "echo -e \"  rhn_activationkey: `oc get secrets rhelsubscriptions --template='{{ .data.rhel_activation_key }}' | base64 --decode`\" | tee -a rhel_reg_creds.yaml"
         sh "echo export OS_TENANT_ID=`oc get configmap openstack-config --template='{{ .data.openstack_project_id }}'` | tee -a openstack_rc.sh"
         sh "echo export OS_AUTH_URL=`oc get configmap openstack-config --template='{{ .data.openstack_url }}'` | tee -a openstack_rc.sh"
-        sh('cat rhel_reg_creds.yaml')
     }
 
     stage('cleanup HEAT environment') {
