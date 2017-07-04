@@ -9,8 +9,7 @@ node {
 node ('openshift-jenkins-pipeline') {
 
     stage('test') {
-        sh('openstack -h')
-        sh('openstack stack -h')
+        sh("openstack stack create -f yaml -t openshift.yaml openshift_testing -e rhel_reg_creds.yaml --parameter key_name=cllewellyn --wait --parameter time=\"$(date)\" --parameter domain_suffix=customer1.flowersandsausages.co.uk --parameter os_auth_url=$OS_AUTH_URL --parameter os_tenant_id=$OS_TENANT_ID --parameter os_tenant_name=$OS_TENANT_NAME --parameter os_region=$OS_REGION_NAME --parameter openshift_openstack_username=$OS_USERNAME --parameter openshift_openstack_password=$OS_PASSWORD)
     }
 
 }
