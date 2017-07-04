@@ -1,0 +1,11 @@
+node ('openstackclient-jenkins-slave') {
+
+    stage('code-checkout') {
+        git url:"https://github.com/UKCloud/openshift-heat.git"
+    }
+
+    stage('') {
+        
+    }
+
+}
