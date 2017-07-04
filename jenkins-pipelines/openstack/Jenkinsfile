@@ -13,3 +13,11 @@ node ('openshift-jenkins-pipeline') {
     }
 
 }
+
+node {
+
+    stage('promote') {
+        openshiftTag(sourceStream: 'openshift-jenkins-pipeline', sourceTag: 'latest', destinationNamespace: 'build-openshift-pre-prod', destinationStream: 'openshift-jenkins-pipeline', destinationTag: 'latest')
+    }
+
+}
