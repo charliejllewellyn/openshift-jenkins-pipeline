@@ -9,7 +9,7 @@ node ('openshift-jenkins-pipeline') {
         sh "echo OS_USERNAME=`oc get secrets openstack --template='{{ .data.username }}' | base64 --decode` | tee -a openstack_rc.sh"
         sh "echo OS_TENANT_ID=`oc get configmap openstack-config --template='{{ .data.openstack_project_id }}'` | tee -a openstack_rc.sh"
         sh "echo OS_AUTH_URL=`oc get configmap openstack-config --template='{{ .data.openstack_url }}'` | tee -a openstack_rc.sh"
-        stash name:'openstack-config' includes:'openstack_rc.sh'
+        stash name:'openstack-config', includes:'openstack_rc.sh'
     }
 
     stage('build HEAT environment') {
