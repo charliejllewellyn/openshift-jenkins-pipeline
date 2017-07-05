@@ -19,3 +19,7 @@ oc create secret generic openstack --from-literal=username=openshift@ukcloud.com
 oc create secret generic rhelsubscriptions --from-literal=rhel_org=6468465 --from-literal=rhel_activation_key=openshift
 
 oc new-build https://github.com/charliejllewellyn/openshift-jenkins-pipeline.git --context-dir=jenkins-pipelines/openshift/ --name=openshift-build
+
+# TODO: Automate webhook creation and updates via the github API
+gitHook=$(oc describe bc hopeful | grep -A1 'Webhook GitHub' | grep URL | awk '{print $NF}')
+echo "Add a github webhook for the following URL to trigger automated builds of the Jenkins pipeline, $gitHook"
