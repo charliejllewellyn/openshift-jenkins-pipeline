@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# test
-
 echo 'Please enter the password for the openstack CI user (openshift@ukcloud.com)'
 read password
 
