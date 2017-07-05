@@ -14,7 +14,7 @@ node ('openstack-jenkins-slave') {
     }
 
     stage('cleanup HEAT environment') {
-        sh 'source ./openstack_rc.sh ; openstack stack show openshift_customer2 && openstack stack delete openshift_customer2 || echo stack not found'
+        sh 'source ./openstack_rc.sh ; openstack stack show openshift_customer2 && openstack stack delete openshift_customer2 --wait || echo stack not found'
     }
 
     stage('setup host keys') {
