@@ -13,15 +13,19 @@ node ('openshift-jenkins-pipeline') {
         sh "echo export OS_AUTH_URL=`oc get configmap openstack-config --template='{{ .data.openstack_url }}'` | tee -a openstack_rc.sh"
     }
 
-    stage('cleanup HEAT environment') {
-        sh 'source ./openstack_rc.sh ; openstack stack show openshift_customer2 && openstack stack delete openshift_customer2 || echo stack not found'
-    }
+//    stage('cleanup HEAT environment') {
+//        sh 'source ./openstack_rc.sh ; openstack stack show openshift_customer2 && openstack stack delete openshift_customer2 || echo stack not found'
+//    }
+//
+//    stage('setup host keys') {
+//        sh 'source ./openstack_rc.sh ; openstack keypair delete jenkins ; openstack keypair create jenkins | tee -a id_rsa_jenkins'
+//    }
+//
+//    stage('setup HEAT environment') {
+//        sh("source ./openstack_rc.sh ; openstack stack create -f yaml -t openshift.yaml openshift_customer2 -e rhel_reg_creds.yaml --parameter key_name=jenkins --wait --parameter time=\"\$(date)\" --parameter domain_suffix=customer1.openshift.ukcloud.com --parameter os_auth_url=\$OS_AUTH_URL --parameter os_tenant_id=\$OS_TENANT_ID --parameter os_tenant_name=\$OS_TENANT_NAME --parameter os_region=\$OS_REGION_NAME --parameter openshift_openstack_username=\$OS_USERNAME --parameter openshift_openstack_password=\$OS_PASSWORD")
+//    }
 
-    stage('setup host keys') {
-        sh 'source ./openstack_rc.sh ; openstack keypair delete jenkins ; openstack keypair create jenkins | tee -a id_rsa_jenkins'
-    }
-
-    stage('setup HEAT environment') {
-        sh("source ./openstack_rc.sh ; openstack stack create -f yaml -t openshift.yaml openshift_customer2 -e rhel_reg_creds.yaml --parameter key_name=jenkins --wait --parameter time=\"\$(date)\" --parameter domain_suffix=customer1.openshift.ukcloud.com --parameter os_auth_url=\$OS_AUTH_URL --parameter os_tenant_id=\$OS_TENANT_ID --parameter os_tenant_name=\$OS_TENANT_NAME --parameter os_region=\$OS_REGION_NAME --parameter openshift_openstack_username=\$OS_USERNAME --parameter openshift_openstack_password=\$OS_PASSWORD")
+    stage('Test HEAT deployment') {
+        sh('echo test')
     }
 }
