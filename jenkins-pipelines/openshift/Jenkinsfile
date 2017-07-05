@@ -1,4 +1,4 @@
-node ('openstack-jenkins-pipeline') {
+node ('openstack-jenkins-slave') {
 
     stage('code-checkout') {
         git branch:"develop", url:"https://github.com/UKCloud/openshift-heat.git"
