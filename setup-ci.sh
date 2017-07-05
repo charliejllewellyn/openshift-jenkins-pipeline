@@ -3,6 +3,13 @@
 echo 'Please enter the password for the openstack CI user (openshift@ukcloud.com)'
 read password
 
+NAME='openstack-jenkins-slave'
+SOURCE_REPOSITORY_URL='https://github.com/charliejllewellyn/openshift-jenkins-pipeline.git'
+SOURCE_REPOSITORY_REF='master'
+CONTEXT_DIR='docker/openstack-jenkins-slave/'
+PIPELINE_CONTEXT_DIR='jenkins-pipelines/openstack/'
+
+
 function setup_projects() {
     projects=(build-openshift build-openshift-pre-prod)
     for project in ${projects[@]}; do
@@ -12,12 +19,6 @@ function setup_projects() {
 }
 
 function setup_openstack_jenkins() {
-
-    NAME='openstack-jenkins-slave'
-    SOURCE_REPOSITORY_URL='https://github.com/charliejllewellyn/openshift-jenkins-pipeline.git'
-    SOURCE_REPOSITORY_REF='master'
-    CONTEXT_DIR='docker/openstack-jenkins-slave/'
-    PIPELINE_CONTEXT_DIR='jenkins-pipelines/openstack/'
 
     oc project build-openshift
     oc new-app -f openshift-yaml/template-openstackclient-jenkins-slave.yaml \
@@ -37,7 +38,7 @@ function setup_openshift_pipeline() {
 
 function configure_openshift_githooks() {
     # TODO: Automate webhook creation and updates via the github API
-    gitHook=$(oc describe bc hopeful | grep -A1 'Webhook GitHub' | grep URL | awk '{print $NF}')
+    gitHook=$(oc describe bc ${NAME}-pipeline | grep -A1 'Webhook GitHub' | grep URL | awk '{print $NF}')
     echo "Add a github webhook for the following URL to trigger automated builds of the Jenkins pipeline, $gitHook"
 }
 
