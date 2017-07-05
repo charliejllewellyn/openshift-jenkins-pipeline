@@ -1,12 +1,12 @@
 node {
 
     stage('build') {
-        openshiftBuild(buildConfig: 'openshift-jenkins-pipeline', showBuildLogs: 'true')
+        openshiftBuild(buildConfig: 'openstack-jenkins-slave', showBuildLogs: 'true')
     }
 
 }
 
-node ('openshift-jenkins-pipeline') {
+node ('openstack-jenkins-slave') {
 
     stage('test') {
         sh("openstack -h")
@@ -18,7 +18,7 @@ node ('openshift-jenkins-pipeline') {
 node {
 
     stage('promote') {
-        openshiftTag(sourceStream: 'openshift-jenkins-pipeline', sourceTag: 'latest', destinationNamespace: 'build-openshift-pre-prod', destinationStream: 'openshift-jenkins-pipeline', destinationTag: 'latest')
+        openshiftTag(sourceStream: 'openstack-jenkins-slave', sourceTag: 'latest', destinationNamespace: 'build-openshift-pre-prod', destinationStream: 'openstack-jenkins-slave', destinationTag: 'latest')
     }
 
 }
